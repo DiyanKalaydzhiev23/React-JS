@@ -1,9 +1,9 @@
-const TodoTask = ({todo, onDelete}) => {
+const TodoTask = ({todo, onDelete, onEdit, className}) => {
     return (
         <div>
-            <li key={todo.id}>{todo.todo}</li>
-            <button onClick={() => onDelete(todo.id)}>X</button>
-            <button>Done</button>
+            <li key={todo.id} className={className}>{todo.todo}</li>
+            <button className="deleteBtn" onClick={() => onDelete(todo.id)}>X</button>
+            <button className="doneBtn" onClick={async () => await onEdit(todo.id)}>Done</button>
         </div>
     );
 }

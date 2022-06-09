@@ -48,5 +48,21 @@ li {
 }
 
 button {
-  margin-right: 5px;
+  margin-left: 5px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.strike {
+  text-decoration: line-through;
+}
+
+.doneBtn {
+  color: white;
+  background-color: green;
+}
+
+.deleteBtn {
+  color: white;
+  background-color: red;
 }

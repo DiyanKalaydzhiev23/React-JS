@@ -3,6 +3,7 @@ import getTodos from "../services/getTodos";
 import postTodo from "../services/postTodo";
 import TodoTask from "./TodoTask";
 import deleteTodo from '../services/deleteTodo'
+import updateTodo from "../services/updateTodo";
 
 
 const TodoMenu = () => {
@@ -29,6 +30,17 @@ const TodoMenu = () => {
         setTodos(oldTodos => oldTodos.filter(todo => todo.id != id));
     };
 
+    const editTodoHandler = async (id) => {
+        setTodos(oldTodos => oldTodos.map(todo => {
+            if (todo.id === id) {
+                return {...todo, completed: true}
+            }
+            return todo;
+        }));
+        
+        const todo = await updateTodo(id);
+    }
+
     return (
         <>
             <label htmlFor="todo">Add todo: </label>
@@ -36,7 +48,12 @@ const TodoMenu = () => {
             <button onClick={async () => addTodo()}>+</button>
 
             <ul>
-                {todos.map(todo => <TodoTask key={todo.id} todo={todo} onDelete={(id) =>deleteTodoHandler(id)}></TodoTask>)}
+                {todos.map(todo => <TodoTask 
+                key={todo.id} 
+                todo={todo} 
+                className={todo.completed === true ? 'strike' : ''} 
+                onDelete={(id) => deleteTodoHandler(id)}
+                onEdit={async (id) => await editTodoHandler(id)}></TodoTask>)}
             </ul>
         </>
     );
